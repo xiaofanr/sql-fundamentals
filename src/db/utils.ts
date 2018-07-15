@@ -19,13 +19,13 @@ function determineDbType(): DbType {
     case 'pg':
       logger.info('Database Type: PostgreSQL');
       return DbType.PostgreSQL;
-    case 'mysql':
-      logger.info('Database Type: MySQL');
-      return DbType.MySQL;
     case 'sqlite':
-    default:
       logger.info('Database Type: SQLite');
       return DbType.SQLite;
+    case 'mysql':
+    default:
+      logger.info('Database Type: MySQL');
+      return DbType.MySQL;
   }
 }
 
