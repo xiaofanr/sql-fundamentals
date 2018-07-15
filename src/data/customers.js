@@ -25,10 +25,18 @@ const ALL_CUSTOMERS_COLUMNS = [
  * @returns {Promise<Customer[]>} A collection of customers
  */
 export async function getAllCustomers(options = {}) {
+  /**
+   * getAllCustomers({ filter: 'Mike'});
+   */
   const db = await getDb();
+  let whereClause = '';
+  if (options.filter) {
+    whereClause = sql `WHERE (lower(companyname) LIKE lower('%${options.filter}%') OR
+                        lower(contactname) LIKE lower('%${options.filter}%'))`;
+  }
   return await db.all(sql`
 SELECT ${ALL_CUSTOMERS_COLUMNS.join(',')}
-FROM Customer`);
+FROM Customer ${whereClause}`);
 }
 
 /**
